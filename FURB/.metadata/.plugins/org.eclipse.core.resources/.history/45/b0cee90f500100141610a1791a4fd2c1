@@ -1,0 +1,60 @@
+package com.taxifleet.server.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public abstract class TableWatcher implements Runnable {
+
+	private long watchInterval;
+
+	public TableWatcher(long watchInterval) {
+		this.watchInterval = watchInterval;
+	}
+
+	public abstract TableLines getModifyedLines();
+	
+	public abstract String getSqlStatement();
+
+	@Override
+	public void run() {
+
+		// Create a variable for the connection string.
+		String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+				+ "databaseName=TaxiAdministrator;integratedSecurity=true;";
+
+
+		try (Connection con = DriverManager.getConnection(connectionUrl);
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(SQL);) {
+
+			// Establish the connection.
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+			// Iterate through the data in the result set and display it.
+			while (rs.next()) {
+				System.out.println(rs.getString("Placa") + " "
+						+ rs.getFloat("Valorkm"));
+			}
+		}
+
+		// Handle any errors that may have occurred.
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		while (true) {
+			watch();
+			try {
+				Thread.sleep(watchInterval);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public abstract void watch();
+
+}

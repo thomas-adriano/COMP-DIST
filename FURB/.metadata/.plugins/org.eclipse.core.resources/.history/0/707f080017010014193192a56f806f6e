@@ -1,0 +1,126 @@
+package com.taxifleet.server.network.socket;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.net.Socket;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.taxifleet.server.ShoutRequest;
+import com.taxifleet.server.ShoutResponse;
+import com.taxifleet.server.Context;
+import com.taxifleet.server.network.NetworkResponse;
+import com.taxifleet.utils.ByteArrayUtils;
+
+/**
+ * Timer de escuta de mensagens ShoutMesage
+ * 
+ * @author Thomas
+ *
+ */
+public class ShoutRequestListener extends Listener {
+
+	private InetAddress mCastGroup;
+	private InetAddress serverAddress;
+	private int port;
+	private int shoutResponsePort;
+	private ShoutResponse shoutResponse;
+	private ShoutRequest shoutRequest;
+	private Context context = com.taxifleet.server.Context.getContext();
+	private static final Logger LOGGER = LogManager
+			.getLogger(ShoutRequestListener.class);
+
+	public ShoutRequestListener(long listeningInterval,
+			InetAddress multicastNetAddressGroup, int port,
+			InetAddress serverNetAddress) {
+		super(listeningInterval);
+		this.mCastGroup = multicastNetAddressGroup;
+		this.serverAddress = serverNetAddress;
+		this.port = port;
+
+		// TODO Esta verificacao deve ser melhorada.. está estranha...
+		// instanciacao só é feita para se usar o checkType abaixo
+		this.shoutResponse = new ShoutResponse();
+		this.shoutRequest = new ShoutRequest();
+
+		this.shoutResponsePort = context.getUnicastPort();
+	}
+
+	@Override
+	public void listen() throws InterruptedException {
+		byte[] emptyBuffer = new byte[shoutRequest.getMessageSize()];
+
+		DatagramPacket packet = new DatagramPacket(emptyBuffer,
+				emptyBuffer.length);
+
+		try (MulticastSocket mCastSocket = new MulticastSocket(port);) {
+			mCastSocket.joinGroup(mCastGroup);
+			LOGGER.info("Starting (Multicast) Shout Request Listener at "
+					+ mCastGroup.getHostAddress() + ":" + port);
+
+			mCastSocket.receive(packet); // escuta no grupo vinculado até
+											// receber alguma mensagem
+
+			LOGGER.debug("Packet received from " + packet.getAddress());
+
+			// verifica se o conteudo do packet é um shoutMessage.
+			if (shoutRequest.checkType(packet.getData())) {
+
+				InetAddress shouterAddress = packet.getAddress(); // netAddress
+				// do
+				// responsável
+				// pela
+				// mensagem
+				// multicast
+				LOGGER.debug("Shouter's IP: "
+						+ packet.getAddress().getHostAddress());
+
+				// pela mensagem
+				// multicast
+
+				LOGGER.debug("Shouter's port (default multicast port): "
+								+ shoutResponsePort);
+				
+				try (Socket socket = new Socket(shouterAddress,
+						shoutResponsePort);) {
+					
+					//TODO isso deveria estar sendo feito dentro de ShoutResponse...
+					byte[] dataToSend = NetworkResponse.mountMessageData(shoutRequest.getMessageHeader(), serverAddress.getAddress());
+					
+					shoutResponse = new ShoutResponse(dataToSend);
+					
+					LOGGER.debug("Replying Shout Request to (shouter): "
+									+ shouterAddress.getHostAddress() + ":"
+									+ shoutResponsePort);
+					
+					byte[] replyData = shoutResponse.toBytes();
+					
+					LOGGER.debug("---Begin reply data---");
+					ByteArrayUtils.printByteArrayContent(replyData);
+					LOGGER.debug("---End reply data---");
+					
+					try (DataOutputStream outStream = new DataOutputStream(
+							socket.getOutputStream());) {
+						outStream
+								.writeBytes(new String(replyData));
+					}
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+
+			}
+
+			packet.setLength(shoutRequest.getMessageSize()); // reseta packet
+																// length
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+}

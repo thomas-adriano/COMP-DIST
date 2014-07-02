@@ -1,0 +1,16 @@
+package com.taxifleet.server.dao;
+
+public class TableLine {
+
+	private String column;
+	
+	private String line;
+	
+	public String getColumn() {
+		return column;
+	}
+	public String getLine() {
+		return line;
+	}
+	
+}

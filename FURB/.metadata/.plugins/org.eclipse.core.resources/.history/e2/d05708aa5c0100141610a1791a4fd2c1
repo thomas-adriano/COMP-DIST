@@ -1,0 +1,30 @@
+package com.taxifleet.server.dao;
+
+import java.util.List;
+
+import com.taxifleet.server.BasicServer;
+import com.taxifleet.server.Context;
+import com.taxifleet.server.dao.tables.DbTable;
+
+public class RemoteDBObserver implements DBObserver {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4029658258225361191L;
+
+	private Context context;
+	
+	public void bla() {
+		BasicServer server = context.getServerReference();
+		
+	}
+	
+	@Override
+	public void update(List<DbTable> o) {
+		System.out.println("################### " + o.size()
+				+ " tabelas alteradas.");
+
+	}
+
+}

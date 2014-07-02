@@ -1,0 +1,9 @@
+package com.taxifleet.server.dao;
+
+public abstract class DatabaseWatcher<T extends Table> implements Runnable {
+
+	public abstract Tables<T> getModifyedTables();
+	
+	
+	
+}

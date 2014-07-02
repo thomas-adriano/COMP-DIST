@@ -1,0 +1,67 @@
+package com.taxifleet.server.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.taxifleet.server.dao.tables.Precos;
+import com.taxifleet.server.dao.tables.Taxi;
+
+public class TaxiTableWatcher extends TableWatcher<Taxi> {
+
+	private Precos outdatedData;
+	private List<TableObserver> observers;
+	private static final String QUERY = "SELECT * FROM dbo.TAXI WHERE dbo.TAXI.atualizado = "
+			+ SqlConstants.OUTDATED_BIT.value();
+	public static final String TABLE_NAME = "Taxi";
+
+	public TaxiTableWatcher(long watchInterval) {
+		super(watchInterval);
+	}
+
+	public static void main(String[] args) {
+		TaxiTableWatcher g = new TaxiTableWatcher(1000);
+		g.run();
+	}
+
+	@Override
+	public Precos getOutdatedData() {
+		// TODO Auto-generated method stub
+		return outdatedData;
+	}
+
+	@Override
+	public void watch(ResultSet rs) throws SQLException {
+		String placa = rs.getString("Placa");
+		float valorKm = rs.getFloat("ValorKm");
+		int atualizado = rs.getInt("Atualizado");
+		outdatedData = new Precos(placa, valorKm, atualizado);
+	}
+
+	@Override
+	public String getSqlStatement() {
+		return QUERY;
+	}
+
+	@Override
+	public String getWatchetTableName() {
+		return TABLE_NAME;
+	}
+
+	@Override
+	public void registerObserver(TableObserver o) {
+		if (observers == null)
+			observers = new ArrayList<>();
+		
+		observers.add(o);
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (TableObserver o : observers) {
+			o.update(outdatedData);
+		}
+	}
+
+}

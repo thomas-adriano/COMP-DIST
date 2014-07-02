@@ -1,0 +1,7 @@
+package com.taxifleet.server.dao;
+
+public interface DBObserver {
+
+	public void update(DBObservable o);
+
+}

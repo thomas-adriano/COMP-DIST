@@ -1,0 +1,36 @@
+package com.taxifleet.server.dao;
+
+import java.sql.ResultSet;
+
+public class PrecosTableWatcher extends TableWatcher {
+
+	private TableLines modifyedLines;
+	private static final String QUERY = "SELECT dbo.Precos.atualizado FROM dbo.Precos WHERE dbo.Precos.atualizado = "+SqlConstants.OUTDATED_BIT;
+
+	public PrecosTableWatcher(long watchInterval) {
+		super(watchInterval);
+	}
+
+	public static void main(String[] args) {
+		PrecosTableWatcher g = new PrecosTableWatcher(1000);
+		g.run();
+	}
+
+	@Override
+	public TableLines getModifyedLines() {
+		// TODO Auto-generated method stub
+		return modifyedLines;
+	}
+
+	@Override
+	public void watch(ResultSet rs) {
+		
+
+	}
+
+	@Override
+	public String getSqlStatement() {
+		return QUERY;
+	}
+
+}

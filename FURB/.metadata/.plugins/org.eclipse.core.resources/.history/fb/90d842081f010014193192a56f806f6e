@@ -1,0 +1,11 @@
+package com.taxifleet.server.network;
+
+public interface NetworkNode {
+
+	public synchronized void shout();
+	
+	public void sendNetAddress();
+	
+	public void startListeningTimers(long time);
+	
+}

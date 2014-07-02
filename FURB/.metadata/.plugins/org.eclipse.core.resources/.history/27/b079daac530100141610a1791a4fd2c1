@@ -1,0 +1,14 @@
+package com.taxifleet.server;
+
+import java.util.Collection;
+
+import com.taxifleet.server.network.NetworkNode;
+
+public interface TaxiServer extends NetworkNode {
+
+	//some client acessible methods
+	public void addTaxi(Taxi taxi);
+	public void removeTaxi(Taxi taxi);
+	public Collection<Taxi> getTaxiList();
+	public void checkIn();
+}

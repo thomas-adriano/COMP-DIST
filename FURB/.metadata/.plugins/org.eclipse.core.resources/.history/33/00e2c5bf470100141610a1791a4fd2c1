@@ -1,0 +1,17 @@
+package com.taxifleet.server.network;
+
+import java.io.Serializable;
+
+import com.taxifleet.server.NodeElement;
+
+public interface NetworkNode extends Serializable, NodeElement {
+
+	public void shout();
+
+	public void sendNetAddress();
+
+	public void startListeningTimers(long time);
+
+	public NetworkNode clone();
+	
+}

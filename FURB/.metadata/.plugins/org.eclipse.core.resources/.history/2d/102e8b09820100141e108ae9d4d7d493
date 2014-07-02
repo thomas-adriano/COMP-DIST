@@ -1,0 +1,52 @@
+package com.taxifleet.server.dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.taxifleet.server.dao.tables.DbTable;
+import com.taxifleet.server.dao.tables.Status;
+
+public class StatusTableWatcher extends TableWatcher<Status> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9011079914693109053L;
+
+	@Override
+	public void registerObserver(TableObserver o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public DbTable getOutdatedData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getSqlStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getWatchetTableName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void watch(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

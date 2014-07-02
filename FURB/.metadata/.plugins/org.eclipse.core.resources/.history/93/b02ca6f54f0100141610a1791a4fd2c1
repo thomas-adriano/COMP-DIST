@@ -1,0 +1,28 @@
+package com.taxifleet.server.dao;
+
+public abstract class TableWatcher implements Runnable {
+
+	private long watchInterval;
+	
+	public TableWatcher(long watchInterval) {
+		this.watchInterval = watchInterval;
+	}
+	
+	public abstract TableLines getModifyedLines();
+	
+	@Override
+	public void run() {
+		while (true) {
+			watch();
+			try {
+				Thread.sleep(watchInterval);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public abstract void watch();
+	
+}

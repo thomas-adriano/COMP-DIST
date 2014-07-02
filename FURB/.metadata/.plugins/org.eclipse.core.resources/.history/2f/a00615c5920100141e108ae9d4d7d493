@@ -1,0 +1,12 @@
+package com.taxifleet.server.dao;
+
+import java.io.Serializable;
+import java.util.List;
+
+import com.taxifleet.server.dao.tables.DbTable;
+
+public interface DBObserver extends Serializable {
+
+	public void update(List<DbTable> o);
+
+}

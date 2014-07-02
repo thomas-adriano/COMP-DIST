@@ -1,0 +1,17 @@
+package com.taxifleet.server.dao.watchers;
+
+import java.util.List;
+
+public class DatabaseWatcher {
+
+	private List<TableWatcher> watchers;
+	
+//	public void registerTableWatcher(TableWatcher watcher) {
+//		
+//	}
+	
+	public void update(TableWatcher watcher) {
+		
+	}
+	
+}

@@ -1,0 +1,17 @@
+package com.taxifleet.server.network.rmi;
+
+import java.io.Serializable;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+import com.taxifleet.server.NodeElement;
+import com.taxifleet.server.network.NetworkNode;
+
+public interface NetworkNodes<T extends NodeElement> extends Remote, Serializable {
+	
+	public boolean hasNext() throws RemoteException;
+
+	public NetworkNode next() throws RemoteException;
+
+	public void addNode(NetworkNode node) throws RemoteException;
+}

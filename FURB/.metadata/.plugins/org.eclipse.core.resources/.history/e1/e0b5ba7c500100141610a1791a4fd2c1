@@ -1,0 +1,34 @@
+package com.taxifleet.server.dao;
+
+public class PrecosTableWatcher extends TableWatcher {
+
+	private TableLines modifyedLines;
+
+	public PrecosTableWatcher(long watchInterval) {
+		super(watchInterval);
+	}
+
+	public static void main(String[] args) {
+		PrecosTableWatcher g = new PrecosTableWatcher(1000);
+		g.watch();
+	}
+
+	@Override
+	public TableLines getModifyedLines() {
+		// TODO Auto-generated method stub
+		return modifyedLines;
+	}
+
+	@Override
+	public void watch() {
+
+
+	}
+
+	@Override
+	public String getSqlStatement() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

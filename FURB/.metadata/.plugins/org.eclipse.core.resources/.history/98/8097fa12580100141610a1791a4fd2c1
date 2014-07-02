@@ -1,0 +1,9 @@
+package com.taxifleet.server;
+
+import com.taxifleet.server.network.NetworkNode;
+
+public interface TaxiServer extends NetworkNode {
+
+	//some client acessible methods
+	public void checkIn();
+}

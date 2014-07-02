@@ -1,0 +1,56 @@
+package com.taxifleet.server.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class PrecosTableWatcher extends TableWatcher {
+
+	private TableLines modifyedLines;
+
+	public PrecosTableWatcher(long watchInterval) {
+		super(watchInterval);
+	}
+
+	public static void main(String[] args) {
+		PrecosTableWatcher g = new PrecosTableWatcher(1000);
+		g.watch();
+	}
+
+	@Override
+	public TableLines getModifyedLines() {
+		// TODO Auto-generated method stub
+		return modifyedLines;
+	}
+
+	@Override
+	public void watch() {
+		// Create a variable for the connection string.
+		String connectionUrl = "jdbc:sqlserver://localhost:1433;"
+				+ "databaseName=TaxiAdministrator;integratedSecurity=true;";
+
+		String SQL = "SELECT * FROM dbo.Precos";
+		
+		try (Connection con = DriverManager.getConnection(connectionUrl);
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(SQL);) {
+			
+			// Establish the connection.
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			
+			// Iterate through the data in the result set and display it.
+			while (rs.next()) {
+				System.out.println(rs.getString("Placa") + " "
+						+ rs.getFloat("Valorkm"));
+			}
+		}
+
+		// Handle any errors that may have occurred.
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+   <property name="hibernate.dialect">
+      org.hibernate.dialect.SQLServer2012Dialect
+   </property>
+   <property name="hibernate.connection.driver_class">
+      com.microsoft.sqlserver.jdbc.SQLServerDriver
+   </property>
+
+   <!-- Assume students is the database name -->
+   <property name="hibernate.connection.url">
+      jdbc:sqlserver://localhost;databaseName=TaxiAdministrator;instanceName=SQLEXPRESS;integratedSecurity=true;
+   </property>
+   <property name="hibernate.connection.username">
+      root
+   </property>
+   <property name="hibernate.connection.password">
+      cohondob
+   </property>
+
+</session-factory>
+</hibernate-configuration>

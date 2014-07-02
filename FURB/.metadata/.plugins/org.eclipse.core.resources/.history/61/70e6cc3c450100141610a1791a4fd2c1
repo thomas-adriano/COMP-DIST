@@ -1,0 +1,19 @@
+package com.taxifleet.server.dao;
+
+public class TableLines<T extends TableLine> {
+
+	private T actualTable;
+	
+	public void addTable(T table) {
+		
+	}
+	
+	public void peek() {
+		
+	}
+	
+	public int size() {
+		return -1;
+	}
+	
+}

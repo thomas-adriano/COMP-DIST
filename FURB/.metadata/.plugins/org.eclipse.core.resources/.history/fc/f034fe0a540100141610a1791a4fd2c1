@@ -1,0 +1,17 @@
+package com.taxifleet.server.dao;
+
+import java.util.List;
+
+public class DatabaseWatcher implements Remote, TableObservable{
+
+	private List<TableWatcher> watchers;
+	
+//	public void registerTableWatcher(TableWatcher watcher) {
+//		
+//	}
+	
+	public void update(TableWatcher watcher) {
+		
+	}
+	
+}

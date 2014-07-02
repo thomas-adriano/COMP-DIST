@@ -1,0 +1,45 @@
+package com.taxifleet.server.network.rmi;
+
+import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.Collection;
+import com.taxifleet.server.network.NetworkNode;
+
+public class TaxiServers implements NetworkNodes {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8021747469510516446L;
+
+	private SerializableList<NetworkNode> nodes;
+
+	private static final TaxiServers instance = new TaxiServers();
+
+	private TaxiServers() {
+
+	}
+
+	public static TaxiServers getInstance() {
+		return instance;
+	}
+
+	@Override
+	public void registerNode(NetworkNode node) {
+		if (nodes == null)
+			nodes = new SerializableList<>();
+
+		nodes.add(node);
+	}
+
+	@Override
+	public SerializableIterator<NetworkNode> getIterator()
+			throws RemoteException {
+		SerializableIterator<NetworkNode> emptyIterator = new SerializableIterator<NetworkNode>(
+				new ArrayList<NetworkNode>().iterator());
+
+		SerializableIterator<NetworkNode> it = new SerializableIterator<NetworkNode>(
+				nodes.iterator());
+
+		return nodes == null ? emptyIterator : it;
+	}
+}

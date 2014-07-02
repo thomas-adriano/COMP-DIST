@@ -1,0 +1,21 @@
+public class ModelStream<T extends DbTable> {
+		private T model;
+
+		public ModelStream() {
+
+		}
+
+		public ModelStream(T t) {
+			this.model = t;
+		}
+
+		public void setModel(T model) {
+			this.model = model;
+		}
+
+		public synchronized T peekData() {
+			T aux = this.model;
+			model = null;
+			return aux;
+		}
+	}

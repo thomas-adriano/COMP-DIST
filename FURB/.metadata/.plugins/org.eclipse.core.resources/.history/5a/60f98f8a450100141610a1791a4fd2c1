@@ -1,0 +1,21 @@
+package com.taxifleet.server.dao;
+
+public class PrecosTableWatcher extends TableWatcher {
+
+	public PrecosTableWatcher(long watchInterval) {
+		super(watchInterval);
+	}
+
+	@Override
+	public TableLines getModifyedLines() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void watch() {
+		// TODO comandos hibernate para ver se a tabela de precos foi alterada
+		
+	}
+
+}

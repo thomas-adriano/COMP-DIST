@@ -1,0 +1,13 @@
+package com.taxifleet.server;
+
+import java.io.Serializable;
+
+import com.taxifleet.server.network.NetworkNode;
+
+public interface NodeElement extends Serializable, Cloneable {
+	public NodeElement getNextNode();
+
+	public void setNextNode(NodeElement node);
+
+	public NodeElement clone();
+}

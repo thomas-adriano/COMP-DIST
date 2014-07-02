@@ -1,0 +1,9 @@
+package com.taxifleet.server.dao;
+
+import java.util.HashMap;
+
+public interface TableLine {
+
+	public HashMap<String, String> getTableContent();
+	
+}

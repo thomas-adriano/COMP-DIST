@@ -1,0 +1,11 @@
+package com.taxifleet.server;
+
+import com.taxifleet.server.network.NetworkNode;
+
+public interface TaxiServer extends NetworkNode, DbObserver {
+
+	//some client acessible methods
+	public void checkIn();
+	public void startTableWatchers();
+
+}

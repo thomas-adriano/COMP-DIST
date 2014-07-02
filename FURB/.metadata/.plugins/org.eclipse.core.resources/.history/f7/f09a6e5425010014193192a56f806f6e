@@ -1,0 +1,27 @@
+package com.taxifleet.server.network.rmi;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.Iterator;
+
+import com.taxifleet.server.network.NetworkNode;
+
+public interface NetworkNodes extends Remote {
+	/**
+	 * Remote name registered at Java Registry (RMI)
+	 * 
+	 */
+	public static final String REMOTE_NAME = "NetworkNodes";
+	
+	/**
+	 * Register NetworkNode to this NetworkNode structure
+	 * 
+	 * @param node
+	 *            node to register;
+	 * @throws RemoteException
+	 */
+	public void registerNode(NetworkNode node) throws RemoteException;
+
+	public Iterator<NetworkNode> getIterator() throws RemoteException;
+
+}

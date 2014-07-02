@@ -1,0 +1,31 @@
+package com.taxifleet.server.dao;
+
+import java.rmi.Remote;
+import java.util.List;
+
+public class DatabaseWatcher implements Remote, TableObservable{
+
+	private List<TableWatcher> watchers;
+	
+	public static void main(String[] args) {
+		DatabaseWatcher dbWatcher = new DatabaseWatcher();
+		dbWatcher.addWatcher(new PrecosTableWatcher());
+	}
+	
+	public void update(TableWatcher watcher) {
+		
+	}
+
+	@Override
+	public void registerObserver(TableObserver o) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void notifyObservers() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}

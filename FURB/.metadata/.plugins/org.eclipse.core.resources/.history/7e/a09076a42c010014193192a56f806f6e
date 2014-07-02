@@ -1,0 +1,29 @@
+package com.taxifleet.server.network.rmi;
+
+import java.io.Serializable;
+import java.util.Iterator;
+
+public class SerializableIterator<E> implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1881109375628731288L;
+
+	private int actualIndex = 0;
+	private E nextNode;
+	
+	
+	public SerializableIterator() {
+		this.iterator = iterator;
+	}
+	
+	public boolean hasNext() {
+		return iterator.hasNext();
+	}
+
+	public E next() {
+		return iterator.next();
+	}
+
+}

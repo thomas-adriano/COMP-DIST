@@ -1,0 +1,51 @@
+package com.taxifleet.server.dao;
+
+import java.rmi.Remote;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.taxifleet.server.dao.tables.DbTable;
+
+public class DatabaseWatcher implements Remote, TableObserver, DBObservable {
+
+	private List<DbTable> outdatedTables;
+	private List<DBObserver> observers;
+
+	public static void main(String[] args) {
+		DatabaseWatcher dbWatcher = new DatabaseWatcher();
+		long watchTime = 1000l;
+		PrecosTableWatcher precosWatcher = new PrecosTableWatcher(watchTime);
+
+		dbWatcher.addWatcher(new StatusTableWatcher(watchTime));
+		dbWatcher.addWatcher(new TaxiTableWatcher(watchTime));
+		dbWatcher.addWatcher(new ViagemTableWatcher(watchTime));
+
+	}
+
+	@Override
+	public void registerObserver(DBObserver o) {
+		if (observers == null)
+			observers = new ArrayList<>();
+
+		observers.add(o);
+
+	}
+
+	@Override
+	public void notifyObservers() {
+		for (DBObserver o : observers) {
+			o.update(observers);
+		}
+
+	}
+
+	@Override
+	public void update(DbTable table) {
+		if (outdatedTables == null)
+			outdatedTables = new ArrayList<>();
+
+		outdatedTables.add(table);
+	}
+
+
+}

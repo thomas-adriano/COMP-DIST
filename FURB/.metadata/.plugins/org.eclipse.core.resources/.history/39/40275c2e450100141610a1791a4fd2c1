@@ -1,0 +1,8 @@
+package com.taxifleet.server.dao;
+
+public interface TableLine {
+
+	public String getColumn();
+	public String getLine();
+	
+}

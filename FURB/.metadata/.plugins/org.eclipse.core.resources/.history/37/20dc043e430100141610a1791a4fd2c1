@@ -1,0 +1,7 @@
+package com.taxifleet.server;
+
+public interface NetworkObserver {
+
+	public void update(NetworkObservable s);
+	
+}
