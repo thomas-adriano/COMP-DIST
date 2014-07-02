@@ -1,8 +1,0 @@
-package com.taxifleet.server.network.rmi;
-
-import java.io.Serializable;
-import java.rmi.Remote;
-
-public interface NetworkNodes extends Remote, Serializable {
-
-}

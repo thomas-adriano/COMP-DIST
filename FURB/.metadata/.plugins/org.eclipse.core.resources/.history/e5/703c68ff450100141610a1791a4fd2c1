@@ -1,9 +1,0 @@
-package com.taxifleet.server.dao;
-
-public class DatabaseWatcher {
-
-	public void registerTableWatcher(TableWatcher watcher) {
-		
-	}
-	
-}

@@ -1,7 +1,0 @@
-package com.taxifleet.server.dao.tables;
-
-public interface DbTable {
-
-
-	
-}

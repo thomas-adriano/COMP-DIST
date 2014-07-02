@@ -1,7 +1,0 @@
-package com.taxifleet.server.dao;
-
-public interface Table {
-
-	public HashMap<String Column, String line>
-	
-}

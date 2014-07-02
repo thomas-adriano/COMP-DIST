@@ -1,8 +1,0 @@
-package com.taxifleet.server;
-
-public interface NetworkObservable {
-
-	public void notifyObservers();
-	public void registerObserver(NetworkObserver o);
-	
-}

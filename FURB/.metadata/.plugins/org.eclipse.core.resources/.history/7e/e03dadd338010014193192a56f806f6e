@@ -1,6 +1,0 @@
-package com.taxifleet.server.dao;
-
-@Entity
-public class Viagem {
-
-}

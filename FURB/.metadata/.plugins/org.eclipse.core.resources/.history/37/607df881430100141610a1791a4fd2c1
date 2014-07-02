@@ -1,9 +1,0 @@
-package com.taxifleet.server.dao;
-
-public interface DatabaseWatcher<T extends Table> extends Runnable {
-
-	public Tables getModifyedTables();
-	
-	
-	
-}

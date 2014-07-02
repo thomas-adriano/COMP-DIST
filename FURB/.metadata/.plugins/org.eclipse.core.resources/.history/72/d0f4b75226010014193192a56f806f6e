@@ -1,7 +1,0 @@
-package com.taxifleet.server.network.rmi;
-
-import java.util.ArrayList;
-
-public class SerializableList<E> extends ArrayList<E> {
-
-}

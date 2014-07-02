@@ -1,9 +1,0 @@
-package com.taxifleet.server;
-
-import com.taxifleet.server.network.NetworkNode;
-
-public interface NodeElement extends Serializable{
-	public NetworkNode getNextNode();
-	
-	public void setNextNode(NetworkNode node);
-}
